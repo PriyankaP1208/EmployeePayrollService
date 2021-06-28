@@ -1,5 +1,6 @@
 package com.bridgelabz;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class EmployeePayrollService {
 
-        public enum IOService {
+    public enum IOService {
             CONSOLE_IO, FILE_IO, DB_IO, REST_IO
         }
 
@@ -118,4 +119,7 @@ public class EmployeePayrollService {
             employeePayrollService.writeEmployeePayrollData();
         }
 
+    public void addEmployeeToDepartment(String name, String gender, double salary, LocalDate startDate, String department) {
+        employeePayrollDataList.add(employeePayrollDBService.addEmployeeToDepartment(name, gender, salary, startDate, department));
+    }
 }
