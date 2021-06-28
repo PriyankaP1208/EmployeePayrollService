@@ -12,7 +12,7 @@ import static com.bridgelabz.EmployeePayrollService.IOService.DB_IO;
 import static com.bridgelabz.EmployeePayrollService.IOService.FILE_IO;
 
 public class EmployeePayrollServiceTest {
-    @Test
+   /* @Test
     public void given3EmployeesWhenWrittenToFileShouldMatchEmployeeEntries() {
         EmployeePayrollData[] arrayOfEmps = {
                 new EmployeePayrollData(1, "Jeff Bezos", 100000.0),
@@ -25,7 +25,7 @@ public class EmployeePayrollServiceTest {
         EmployeePayrollService.printData(FILE_IO);
         long entries = employeePayrollService.countEntries(FILE_IO);
         Assert.assertEquals(3, entries);
-    }
+    }*/
 
     @Test
     public void givenEmployeePayrollInDB_WhenRetrieved_ShouldMatchEmployeeCount() {
@@ -49,7 +49,7 @@ public class EmployeePayrollServiceTest {
         employeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
         LocalDate startDate = LocalDate.of(2018,01,01);
         LocalDate endDate = LocalDate.now();
-        List<EmployeePayrollData> employeePayrollData = employeePayrollService.readEmployeePayrollDataRange(EmployeePayrollService.IOService.DB_IO,startDate,endDate);
+        List<EmployeePayrollData> employeePayrollData = employeePayrollService.readEmployeePayrollForDataRange(EmployeePayrollService.IOService.DB_IO,startDate,endDate);
         Assert.assertEquals(3,employeePayrollData.size());
     }
 
