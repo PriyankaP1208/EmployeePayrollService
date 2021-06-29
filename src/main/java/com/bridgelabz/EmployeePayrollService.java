@@ -2,10 +2,7 @@ package com.bridgelabz;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class EmployeePayrollService {
 
@@ -100,6 +97,28 @@ public class EmployeePayrollService {
     }
 
     public void addEmployeesToPayrollWithThread(List<EmployeePayrollData> employeePayrollDataList) {
+        Map<Integer, Boolean> employeeAdditionStatus = new HashMap<Integer, Boolean>();
+        employeePayrollDataList.forEach(employeePayrollData -> {
+            Runnable task = () -> {
+                employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
+                System.out.println("Employee Being added" + Thread.currentThread().getName());
+                this.addEmployeeToPayroll(employeePayrollData.name, employeePayrollData.salary,
+                                            employeePayrollData.startDate, employeePayrollData.gender);
+                employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
+                System.out.println("Employee added" +Thread.currentThread().getName());
+            };
+            Thread thread = new Thread(task, employeePayrollData.name);
+            thread.start();
+        });
+        while (employeeAdditionStatus.containsValue(false))
+        {
+            try {
+                Thread.sleep(10);
+            }catch (InterruptedException e)
+            {
+            }
+        }
+        System.out.println(employeePayrollDataList);
     }
 
     public enum IOService {
@@ -131,6 +150,8 @@ public class EmployeePayrollService {
         if (ioService.equals(IOService.FILE_IO)){
             new EmployeePayrollFileIOService().printDataFromFile();
         }
+        else
+            System.out.println(employeePayrollDataList);
     }
 
     public void readDataFromFile(IOService ioService){

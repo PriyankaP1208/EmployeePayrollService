@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class EmployeePayrollData {
     public String name;
@@ -54,6 +55,11 @@ public class EmployeePayrollData {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, gender, salary, startDate);
     }
 
     @Override

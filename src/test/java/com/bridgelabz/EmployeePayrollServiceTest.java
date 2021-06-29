@@ -110,6 +110,7 @@ public class EmployeePayrollServiceTest {
         employeePayrollService.addEmployeesToPayrollWithThread(Arrays.asList(arrayOfEmps));
         Instant threadEnd = Instant.now();
         System.out.println("Duration with Thread" + Duration.between(threadEnd, threadStart));
+        employeePayrollService.printData(DB_IO);
         Assert.assertEquals(11,employeePayrollService.countEntries(DB_IO));
     }
 }
