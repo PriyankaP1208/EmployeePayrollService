@@ -79,4 +79,11 @@ public class EmployeePayrollServiceTest {
         boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Max");
         Assert.assertTrue(result);
     }
+
+    @Test
+    public void givenEmployeeId_WhenRemoved_shouldReturnNumberOfActiveEmployees() {
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        List<EmployeePayrollData> ActiveEmployees = employeePayrollService.removeEmployeeFromPayroll(3);
+        Assert.assertEquals(5, ActiveEmployees.size());
+    }
 }

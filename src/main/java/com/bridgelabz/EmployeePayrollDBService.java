@@ -226,4 +226,14 @@ public class EmployeePayrollDBService {
         }
         return employee;
     }
+
+    public List<EmployeePayrollData> removeEmployeeFromPayroll(int id) {
+        List<EmployeePayrollData> Employees = this.readData();
+        Employees.forEach(employee -> {
+            if (employee.id == id) {
+                employee.is_active = false;
+            }
+        });
+        return Employees;
+    }
 }
