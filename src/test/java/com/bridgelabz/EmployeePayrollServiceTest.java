@@ -3,6 +3,9 @@ package com.bridgelabz;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.AnnotatedType;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -85,5 +88,28 @@ public class EmployeePayrollServiceTest {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayrollData> ActiveEmployees = employeePayrollService.removeEmployeeFromPayroll(3);
         Assert.assertEquals(5, ActiveEmployees.size());
+    }
+
+    @Test
+    public void given6Employees_WhenAddedToDB_ShouldMatchEmployeesEntries() {
+        EmployeePayrollData[] arrayOfEmps = {
+                new EmployeePayrollData(0, "Jeff Bezos", "M", 100000.0, LocalDate.now()),
+                new EmployeePayrollData(0, "Bill Gates", "M", 200000.0, LocalDate.now()),
+                new EmployeePayrollData(0, "Mark Zukerberg", "M", 300000.0, LocalDate.now()),
+                new EmployeePayrollData(0, "Sunder", "M", 600000.0, LocalDate.now()),
+                new EmployeePayrollData(0, "Mukesh", "M", 1000000.0, LocalDate.now()),
+                new EmployeePayrollData(0, "Anil", "M", 200000.0, LocalDate.now())
+        };
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        employeePayrollService.readEmployeePayrollData(DB_IO);
+        Instant start = Instant.now();
+        employeePayrollService.addEmployeeToPayroll(Arrays.asList(arrayOfEmps));
+        Instant end = Instant.now();
+        System.out.println("Duration without thread" + Duration.between(end, start));
+        Instant threadStart = Instant.now();
+        employeePayrollService.addEmployeesToPayrollWithThread(Arrays.asList(arrayOfEmps));
+        Instant threadEnd = Instant.now();
+        System.out.println("Duration with Thread" + Duration.between(threadEnd, threadStart));
+        Assert.assertEquals(11,employeePayrollService.countEntries(DB_IO));
     }
 }

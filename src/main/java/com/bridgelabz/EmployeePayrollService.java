@@ -89,6 +89,19 @@ public class EmployeePayrollService {
         return activeEmployees;
     }
 
+    public void addEmployeeToPayroll(List<EmployeePayrollData> employeePayrollDataList) {
+        employeePayrollDataList.forEach(employeePayrollData -> {
+            System.out.println("Employee Being Added" + employeePayrollData.name);
+            this.addEmployeeToPayroll(employeePayrollData.name, employeePayrollData.salary,
+                    employeePayrollData.startDate, employeePayrollData.gender);
+            System.out.println("Employee Added" + employeePayrollData.name);
+        });
+        System.out.println(this.employeePayrollDataList);
+    }
+
+    public void addEmployeesToPayrollWithThread(List<EmployeePayrollData> employeePayrollDataList) {
+    }
+
     public enum IOService {
         CONSOLE_IO, FILE_IO, DB_IO, REST_IO
     }
@@ -111,7 +124,7 @@ public class EmployeePayrollService {
             return employeePayrollDataList.size();
         else if (ioService.equals(IOService.FILE_IO))
             return EmployeePayrollFileIOService.countEntries();
-        return 0;
+        return employeePayrollDataList.size();
     }
 
     public void printData(IOService ioService){
