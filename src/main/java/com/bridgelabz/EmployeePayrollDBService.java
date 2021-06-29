@@ -21,7 +21,6 @@ public class EmployeePayrollDBService {
     }
 
     private Connection getConnection() throws SQLException {
-
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service?useSSL=false";
         String userName = "root";
         String password = "Priyanka@1208";
@@ -72,7 +71,6 @@ public class EmployeePayrollDBService {
         return employeePayrollList;
     }
 
-
     public List<EmployeePayrollData> getEmployeePayrollData(String name) {
         List<EmployeePayrollData> employeePayrollList = null;
         if (this.employeePayrollStatement == null)
@@ -86,7 +84,6 @@ public class EmployeePayrollDBService {
         }
         return employeePayrollList;
     }
-
 
     private List<EmployeePayrollData> getEmployeePayrollData(ResultSet resultSet) {
         List<EmployeePayrollData> employeePayrollList = new ArrayList<>();
@@ -194,10 +191,25 @@ public class EmployeePayrollDBService {
                 ex.printStackTrace();
             }
         }
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return employeePayrollData;
     }
 
-    public EmployeePayrollData addEmployeeToDepartment(String name, String gender, double salary, LocalDate startDate, String department) {
+    public EmployeePayrollData addEmployeeToDepartment(String name, double salary, LocalDate startDate, String gender,
+                                                       String department) {
         EmployeePayrollData employee = addEmployeeToPayroll(name, salary, startDate, gender);
         int employeeId = -1;
         String sql = String.format(
@@ -207,7 +219,7 @@ public class EmployeePayrollDBService {
             Statement statement = connection.createStatement();
             int rowAffected = statement.executeUpdate(sql);
             if (rowAffected == 1) {
-                employee = new EmployeePayrollData(employeeId, name, gender, salary, startDate, department);
+                employee = new EmployeePayrollData(employeeId, name, salary, startDate, gender, department);
             }
         } catch (SQLException e) {
             e.printStackTrace();

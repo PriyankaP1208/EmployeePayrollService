@@ -9,7 +9,6 @@ public class EmployeePayrollData {
     public LocalDate startDate;
     public String department;
 
-
     public EmployeePayrollData(int id, String name, double salary) {
         this.name = name;
         this.id = id;
@@ -21,8 +20,8 @@ public class EmployeePayrollData {
         this.startDate = startDate;
     }
 
-    public EmployeePayrollData(int id, String name, String gender, double salary, LocalDate startDate, String department) {
-        this(id, name, salary, startDate);
+    public EmployeePayrollData(int employeeId, String name, double salary, LocalDate startDate, String gender, String department) {
+        this(employeeId, name, salary, startDate);
         this.department = department;
     }
 

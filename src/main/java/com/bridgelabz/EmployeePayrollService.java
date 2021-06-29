@@ -54,7 +54,6 @@ public class EmployeePayrollService {
             return null;
         }
 
-
         public boolean checkEmployeePayrollInSyncWithDB(String name) {
             List<EmployeePayrollData> employeePayrollDataList = employeePayrollDBService.getEmployeePayrollData(name);
             return employeePayrollDataList.get(0).equals(getEmployeePayrollData(name));
@@ -88,7 +87,6 @@ public class EmployeePayrollService {
             else if (ioService.equals(IOService.FILE_IO)) {
                 EmployeePayrollFileIOService.writeData(employeePayrollDataList);
             }
-
         }
 
         public long countEntries(IOService ioService) {
@@ -119,7 +117,7 @@ public class EmployeePayrollService {
             employeePayrollService.writeEmployeePayrollData();
         }
 
-    public void addEmployeeToDepartment(String name, String gender, double salary, LocalDate startDate, String department) {
-        employeePayrollDataList.add(employeePayrollDBService.addEmployeeToDepartment(name, gender, salary, startDate, department));
+    public void addEmployeeToDepartment(String name,  Double salary, LocalDate startDate,String gender, String department) {
+        this.employeePayrollDataList.add(employeePayrollDBService.addEmployeeToDepartment(name,  salary, startDate, gender, department));
     }
 }

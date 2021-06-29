@@ -75,7 +75,7 @@ public class EmployeePayrollServiceTest {
     public void givenNewEmployee_WhenAdded_ShouldAddedToDepartment() {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         employeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
-        employeePayrollService.addEmployeeToDepartment("Max", "M", 5000000.00, LocalDate.now(), "sales");
+        employeePayrollService.addEmployeeToDepartment("Max", 400000.00, LocalDate.now(), "M", "Sales");
         boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Max");
         Assert.assertTrue(result);
     }
